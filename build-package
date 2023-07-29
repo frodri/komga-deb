@@ -28,7 +28,6 @@ for dist in "${all_dist[@]}"; do
     # Install files
     install -Dm 755 "$STARTDIR/komga.jar" "$DESTDIR/usr/share/java/komga.jar"
     install -Dm 755 "$STARTDIR/komga.service" "$DESTDIR/etc/systemd/system/komga.service"
-    install -dm 750 "$DESTDIR/var/lib/komga"
     
     mkdir -p "$DESTDIR/DEBIAN"
     cp "$STARTDIR/DEBIAN/"* "$DESTDIR/DEBIAN/"
