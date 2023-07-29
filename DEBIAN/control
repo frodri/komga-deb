@@ -1,0 +1,11 @@
+Package: komga
+Version: VERSION-TO-REPLACE
+Section: net
+Priority: optional
+Architecture: ARCHI-TO-REPLACE
+Depends: openjdk-17-jre-headless
+Recommends: sqlite3
+Maintainer: Francisco Rodriguez <872826+frodri@users.noreply.github.com>
+Description: Free and open source comics/mangas media server
+Homepage: https://github.com/gotson/komga
+Bugs: https://github.com/gotson/komga/issues

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+case "$1" in
+    upgrade)
+        [ -d  /run/systemd/system/ ] && systemctl stop komga
+        exit 0
+        ;;
+    remove)
+        [ -d  /run/systemd/system/ ] && systemctl stop komga
+        [ -d  /run/systemd/system/ ] && systemctl disable komga
+        exit 0
+        ;;
+    *)
+        ;;
+esac

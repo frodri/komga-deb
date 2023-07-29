@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+case "$1" in
+    purge)
+        if [ -x "$(command -v deluser)" ]; then
+          deluser --quiet --system --remove-home komga > /dev/null || true
+          echo "Komga user removed"
+        else
+          echo >&2 "not removing komga system account because deluser command was not found"
+        fi        
+        ;;
+    *)
+        ;;
+esac
+
+exit 0

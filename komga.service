@@ -1,0 +1,17 @@
+[Unit]
+Description=Komga media server
+After=syslog.target
+After=network.target
+
+[Service]
+User=komga
+Group=komga
+Restart=always
+RestartSec=2s
+Type=simple
+Environment=USER=komga HOME=/home/komga KOMGA_CONFIGDIR=/var/lib/komga
+WorkingDirectory=/var/lib/komga/
+ExecStart=/usr/bin/java -jar -Xmx1g /usr/share/java/komga.jar
+
+[Install]
+WantedBy=multi-user.target

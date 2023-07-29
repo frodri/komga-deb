@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+[ -d  /run/systemd/system/ ] && systemctl daemon-reload
+[ -d  /run/systemd/system/ ] && systemctl enable komga
+[ -d  /run/systemd/system/ ] && systemctl restart komga
+
+exit 0
