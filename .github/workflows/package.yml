@@ -24,6 +24,7 @@ jobs:
           rm -rf debs deb tmp
           mkdir tmp && cd tmp
           cp ../build-package .
+          cp ../komga.service .
           cp -r ../DEBIAN .
           chmod +x build-package
           chmod 755 DEBIAN/control
