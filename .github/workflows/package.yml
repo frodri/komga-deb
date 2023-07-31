@@ -33,12 +33,12 @@ jobs:
           chmod 755 DEBIAN/preinst
           chmod 755 DEBIAN/prerm
           bash build-package || exit 1
-          mv deb/*.deb ../
           cd ..
           rm -rf tmp
           echo $version > current.txt
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git add .
-          git commit -m "Upload komga ${version}"
+          git add current.txt
+          git commit -m "Komga version updated to ${version}."
           git push origin master
+          gh release create $version ./deb/*.deb
