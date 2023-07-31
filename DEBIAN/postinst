@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+chown komga: /var/lib/gitea
 
 [ -d  /run/systemd/system/ ] && systemctl daemon-reload
 [ -d  /run/systemd/system/ ] && systemctl enable komga
