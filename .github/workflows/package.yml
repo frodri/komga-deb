@@ -15,7 +15,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Package debs
         run: |
           export version=$(curl -s https://api.github.com/repos/gotson/komga/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v')
@@ -42,3 +42,5 @@ jobs:
           git commit -m "Komga version updated to ${version}."
           git push origin master
           gh release create $version ./deb/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
