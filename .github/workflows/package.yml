@@ -33,6 +33,7 @@ jobs:
           chmod 755 DEBIAN/preinst
           chmod 755 DEBIAN/prerm
           bash build-package || exit 1
+          mv deb/*.deb ../
           cd ..
           rm -rf tmp
           echo $version > current.txt
@@ -41,6 +42,6 @@ jobs:
           git add current.txt
           git commit -m "Komga version updated to ${version}."
           git push origin master
-          gh release create $version ./deb/*.deb
+          gh release create $version ./*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
