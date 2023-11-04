@@ -14,10 +14,10 @@ mkdir "$OUTDIR"
 
 # get version
 repo="gotson/komga"
-api=$(curl --silent "https://api.github.com/repos/$repo/releases/latest")
-new=$(echo $api | grep -Po '"tag_name": "v\K.*?(?=")')
+api=$(curl -s "https://api.github.com/repos/$repo/releases/latest")
+new=$(echo $api | grep -oP '"tag_name": "\K(.*)(?=")')
 
-wget -q https://github.com/$repo/releases/download/v$new/komga-$new.jar -O "$STARTDIR/komga.jar"
+wget -q https://github.com/$repo/releases/download/$new/komga-$new.jar -O "$STARTDIR/komga.jar"
 
 all_dist=('all')
 for dist in "${all_dist[@]}"; do
