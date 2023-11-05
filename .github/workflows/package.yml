@@ -32,7 +32,7 @@ jobs:
           chmod 755 DEBIAN/postrm
           chmod 755 DEBIAN/preinst
           chmod 755 DEBIAN/prerm
-          bash build-package || exit 1
+          bash build-package
           mv deb/*.deb ../
           cd ..
           rm -rf tmp
