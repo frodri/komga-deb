@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Package debs
         run: |
-          export version=$(/usr/bin/curl --silent https://api.github.com/repos/gotson/komga/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+          export version=$(curl --silent https://api.github.com/repos/gotson/komga/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
           export current=$(cat current.txt)
           [ "$current" == "$version" ] && exit 0
           rm -rf debs deb tmp

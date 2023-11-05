@@ -13,11 +13,8 @@ OUTDIR="$STARTDIR/deb"
 mkdir "$OUTDIR"
 
 # get version
-repo="gotson/komga"
-api=$(/usr/bin/curl --silent "https://api.github.com/repos/$repo/releases/latest")
-new=$(echo $api | grep -oP '"tag_name": "\K(.*)(?=")')
-
-/usr/bin/curl --silent https://github.com/$repo/releases/download/$new/komga-$new.jar -O "$STARTDIR/komga.jar"
+version=$(curl --silent https://api.github.com/repos/gotson/komga/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+curl --silent https://github.com/gotson/komga/releases/download/$version/komga-$version.jar -O "$STARTDIR/komga.jar"
 
 all_dist=('all')
 for dist in "${all_dist[@]}"; do
@@ -34,7 +31,7 @@ for dist in "${all_dist[@]}"; do
     cp "$STARTDIR/DEBIAN/"* "$DESTDIR/DEBIAN/"
     
     # Modify control file for build
-    sed -i "s/VERSION-TO-REPLACE/$new/" "$DESTDIR/DEBIAN/control"
+    sed -i "s/VERSION-TO-REPLACE/$version/" "$DESTDIR/DEBIAN/control"
     sed -i "s/ARCHI-TO-REPLACE/$dist/" "$DESTDIR/DEBIAN/control"
     
     # Build .deb
