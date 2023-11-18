@@ -1,10 +1,16 @@
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { exec as execImpl } from "node:child_process";
 import { promisify } from "node:util";
 
 const exec = promisify(execImpl);
 
 const main = async () => {
+    if (!existsSync('deb')) {
+        console.log('No pending releases. Exiting.');
+        return;
+    }
+
     const versionFile = await readFile('current.txt');
     const version = versionFile.toString();
 
