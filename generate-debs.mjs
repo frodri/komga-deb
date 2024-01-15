@@ -29,10 +29,11 @@ const main = async () => {
 
     // Download the binary while we prepare the rest of the package.
     await mkdir('tmp/usr/share/java', {recursive: true, mode: 0o750});
-    const binaryLookup = await fetch(
+    const binaryRequest = fetch(
         `https://github.com/gotson/komga/releases/download/${newVersion}/komga-${newVersion}.jar`
     );
-    const binaryBuffer = Buffer.from(await binaryLookup.arrayBuffer());
+    const binaryResponse = await binaryRequest;
+    const binaryBuffer = Buffer.from(await binaryResponse.arrayBuffer());
     const binaryWriter = writeFile('tmp/usr/share/java/komga.jar', binaryBuffer, {mode: 0x755});
 
     // Prep the DEBIAN dir.
