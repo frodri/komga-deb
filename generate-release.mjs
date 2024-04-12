@@ -1,42 +1,46 @@
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { exec as execImpl } from "node:child_process";
-import { promisify } from "node:util";
+import { exec as execImpl } from 'node:child_process';
+import { promisify } from 'node:util';
+import { setgid, setuid } from 'node:process';
 
 const exec = promisify(execImpl);
 
 const main = async () => {
-    if (!existsSync('deb')) {
-        console.log('No pending releases. Exiting.');
-        return;
-    }
+  setuid('root');
+  setgid('root');
 
-    const versionFile = await readFile('current.txt');
-    const version = versionFile.toString();
+  if (!existsSync('deb')) {
+    console.log('No pending releases. Exiting.');
+    return;
+  }
 
-    await exec(
-        'git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"'
-    );
+  const versionFile = await readFile('current.txt');
+  const version = versionFile.toString();
 
-    await exec(
-        'git config --global user.name "github-actions[bot]"'
-    );
+  await exec(
+    'git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"'
+  );
 
-    await exec(
-        'git add current.txt'
-    );
+  await exec(
+    'git config --global user.name "github-actions[bot]"'
+  );
 
-    await exec(
-        `git commit -m "Komga version updated to ${version}."`
-    );
+  await exec(
+    'git add current.txt'
+  );
 
-    await exec(
-        'git push origin master'
-    );
+  await exec(
+    `git commit -m "Komga version updated to ${version}."`
+  );
 
-    await exec(
-        `gh release create ${version} deb/*.deb`
-    );
-}
+  await exec(
+    'git push origin master'
+  );
+
+  await exec(
+    `gh release create ${version} deb/*.deb`
+  );
+};
 
 main().catch(console.error);
